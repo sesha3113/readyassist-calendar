@@ -216,8 +216,10 @@ const Form = (prop) => {
             </div>
             {error &&
                 (
-                    <div className='text-sm text-red-500'>
-                        {error}
+                    <div className='text-sm text-red-500 flex justify-center'>
+                        <div className='mb-3 xl:w-96'>
+                            {error}
+                        </div>
                     </div>
                 )
             }
