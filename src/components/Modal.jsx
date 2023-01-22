@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import Close from '../resources/icons/close';
 
 const ModalWrapper = ({ children, isModalOpen, setIsModalOpen }) => {
-    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        setIsOpen(isModalOpen)
     }, [isModalOpen])
 
     const closeModal = () => {
-        setIsOpen(false)
         setIsModalOpen(false)
     }
 
@@ -28,7 +25,7 @@ const ModalWrapper = ({ children, isModalOpen, setIsModalOpen }) => {
     return (
         <>
             <Modal
-                isOpen={isOpen}
+                isOpen={isModalOpen}
                 style={customStyles}
             >
                 <div className='flex justify-end' >

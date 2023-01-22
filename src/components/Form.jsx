@@ -4,10 +4,16 @@ import { setSession } from '../utils/Helper';
 import { useNavigate } from "react-router-dom";
 import Validations from '../utils/Validations'
 
-const Form = (prop) => {
-    const { eventPeriod, events, setEvents } = useContext(AppContext)
-    const { setIsModalOpen } = prop
-    const { date, month, year } = eventPeriod;
+const Form = () => {
+    const { eventPeriod, events, setEvents, setAddEventModalOpen } = useContext(AppContext)
+    const { date, month, year, from } = eventPeriod;
+    const fromTimeRef = useRef();
+    useEffect(() => {
+        if (from) {
+            fromTimeRef.current.value = `${from}:00:00`;
+        }
+    }, [from])
+
     const [formData, setFormData] = useState();
     const [joiners, setJoiners] = useState([]);
     const [nameError, setNameError] = useState('');
@@ -34,7 +40,7 @@ const Form = (prop) => {
             formData.date = eventPeriod;
             setEvents([...events, formData]);
             setSession("events", events);
-            setIsModalOpen(false);
+            setAddEventModalOpen(false);
             navigate(0);
         }
     }
@@ -120,7 +126,7 @@ const Form = (prop) => {
                     <label for="time" className="form-label inline-block mb-2 text-gray-700">Time</label>
                     <span className="text-red-500"> *</span>
                     <div className='flex gap-[6px]'>
-                        <input type="time" name="from" className={`!w-1/2 btn focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${timeError ? '!border-red-500' : ''}`} onChange={handleChange} />
+                        <input type="time" ref={fromTimeRef} name="from" className={`!w-1/2 btn focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${timeError ? '!border-red-500' : ''}`} onChange={handleChange} />
                         <input type="time" name="to" className={`!w-1/2 btn focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${timeError ? '!border-red-500' : ''}`} onChange={handleChange} />
                     </div>
                 </div>
